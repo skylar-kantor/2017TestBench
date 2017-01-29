@@ -81,6 +81,10 @@ public class Robot extends IterativeRobot {
 		int pulseWidthUs = Motors.TestCANTalon.getPulseWidthRiseToFallUs();
 		int periodUs = Motors.TestCANTalon.getPulseWidthRiseToRiseUs();
 		int pulseWidthVel = Motors.TestCANTalon.getPulseWidthVelocity();
+		System.out.println(pulseWidthPos);
+		System.out.println(pulseWidthUs);
+		System.out.println(pulseWidthVel);
+		System.out.println(periodUs);
 		Motors.TestCANTalon.changeControlMode(TalonControlMode.PercentVbus);
 		Motors.TestCANTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		CameraServer.getInstance().startAutomaticCapture();
@@ -123,16 +127,16 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
-	@SuppressWarnings("deprecation")
 	public void teleopPeriodic() {
 		// Check to see if encoder is plugged in
 		FeedbackDeviceStatus sensorStatus = Motors.TestCANTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Absolute);
 		boolean sensorPluggedIn = (FeedbackDeviceStatus.FeedbackStatusPresent == sensorStatus);
 		SmartDashboard.putBoolean("CAN Talon encoder plugged in:", sensorPluggedIn);
+		
 		double CANTalonPos = Motors.TestCANTalon.getEncPosition();
 		double CANTalonVel = Motors.TestCANTalon.getEncVelocity();
-		SmartDashboard.putDouble("CAN Talon Pos:", CANTalonPos);
-		SmartDashboard.putDouble("CAN Talon Vel:", CANTalonVel);
+		SmartDashboard.putNumber("CAN Talon Pos:", CANTalonPos);
+		SmartDashboard.putNumber("CAN Talon Vel:", CANTalonVel);
 
 		Scheduler.getInstance().run();
 	}
@@ -141,17 +145,17 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during test mode
 	 */
 	// @SuppressWarnings("static-access")
-	@SuppressWarnings("deprecation")
 	public void testPeriodic() {
 		LiveWindow.run();
 		// Check to see if encoder is plugged in
 		FeedbackDeviceStatus sensorStatus = Motors.TestCANTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Absolute);
 		boolean sensorPluggedIn = (FeedbackDeviceStatus.FeedbackStatusPresent == sensorStatus);
 		SmartDashboard.putBoolean("CAN Talon encoder plugged in:", sensorPluggedIn);
+		
 		double CANTalonPos = Motors.TestCANTalon.getEncPosition();
 		double CANTalonVel = Motors.TestCANTalon.getEncVelocity();
-		SmartDashboard.putDouble("CAN Talon Pos:", CANTalonPos);
-		SmartDashboard.putDouble("CAN Talon Vel:", CANTalonVel);
+		SmartDashboard.putNumber("CAN Talon Pos:", CANTalonPos);
+		SmartDashboard.putNumber("CAN Talon Vel:", CANTalonVel);
 
 	}
 }
